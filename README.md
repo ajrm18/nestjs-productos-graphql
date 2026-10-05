@@ -164,7 +164,23 @@ Respuesta real:
 
 ## 7. Despliegue
 
-_Pendiente: se completa después del despliegue en Render._
+- **Repositorio:** https://github.com/ajrm18/nestjs-productos-graphql
+- **Servicio en Render (plan Free, Blueprint `render.yaml`):** https://nestjs-productos-graphql-tgv7.onrender.com
+- **Explorador GraphQL:** https://nestjs-productos-graphql-tgv7.onrender.com/graphql
+
+Configuración (`render.yaml`): runtime Node, `NODE_VERSION=24`, build `npm install && npm run build`, start `npm run start:prod` (el puerto lo asigna Render vía `PORT`).
+
+### Pruebas en la nube (respuestas reales)
+
+| Prueba | Resultado |
+|---|---|
+| `GET /graphql` con `Accept: text/html` | HTTP 200 (explorador visible) |
+| `query { productos { id nombre precio } }` | HTTP 200 – 3 productos (ids 1, 3, 4) |
+| `query { productoPorId(id: 3) { id nombre precio } }` | HTTP 200 – `{ "id": 3, "nombre": "Teclado inalámbrico hp", "precio": 75.5 }` |
+| `query { productosBaratos(precioMaximo: 50) { nombre precio } }` | HTTP 200 – `[{ "nombre": "Teclado mecánico", "precio": 45.9 }]` |
+| `query { productosBaratos(precioMaximo: 100) { nombre precio } }` | HTTP 200 – Teclado mecánico (45.9) y Teclado inalámbrico hp (75.5) |
+
+Nota: al ser plan gratuito, la primera petición tras un periodo de inactividad puede tardar ~1 minuto en responder.
 
 ## 8. Declaración de uso de IA
 
