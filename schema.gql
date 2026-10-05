@@ -1,0 +1,15 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Producto {
+  id: Int!
+  nombre: String!
+  precio: Float!
+}
+
+type Query {
+  productos: [Producto!]!
+  productoPorId(id: Int!): Producto
+  productosBaratos(precioMaximo: Float!): [Producto!]!
+}
